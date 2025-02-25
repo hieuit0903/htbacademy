@@ -13,5 +13,5 @@ Find a way to login to the web admin. Just try anything from view page-source, i
   After map the domain to our hosts. Let's try to browse it again. And we can success to access the website
 ![Image](https://github.com/user-attachments/assets/024e1e65-42e2-499b-9146-4a9b747375d3)
 - Now, it's time to find more informations about this site, I want to save my time so I've used ffuf for quick <br>
-![Image](https://github.com/user-attachments/assets/7712a444-2c8d-4661-be1f-772957258d4a) <br>
+![Image](https://github.com/user-attachments/assets/a410f70b-c886-409a-937f-143ccd355d01) <br>
 
