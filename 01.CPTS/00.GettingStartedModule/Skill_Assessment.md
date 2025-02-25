@@ -14,4 +14,7 @@ Find a way to login to the web admin. Just try anything from view page-source, i
 ![Image](https://github.com/user-attachments/assets/024e1e65-42e2-499b-9146-4a9b747375d3)
 - Now, it's time to find more informations about this site, I want to save my time so I've used ffuf for quick <br>
 ![Image](https://github.com/user-attachments/assets/a410f70b-c886-409a-937f-143ccd355d01) <br>
-
+  I found some interesting directories. Now, let's take a look at them. If we visit /admin, it redirects us to the login page. I do not know anything about the username or password, so I decided to go back and check other directories for credentials. There was nothing special in the backups, plugins, or themes directories. But when we got to /data/users, we found admin credentials there
+![Image](https://github.com/user-attachments/assets/6af1db30-7f13-49b5-b8c9-1fc272b588cf) <br>
+It seems that this is the admin login information, and the password has been hashed using the MD5 algorithm.
+Using Hashcat or some online cracking tools, we cracked the MD5 hash. After that, we found that the username is 'admin' and the password is 'admin'.
