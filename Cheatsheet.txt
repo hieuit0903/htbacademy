@@ -1,0 +1,3 @@
+## Information Gathering
+nmap -sC -sV -vv -p- <Target IP>
+
