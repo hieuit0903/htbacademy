@@ -32,3 +32,4 @@ Using Hashcat or some online cracking tools, we cracked the MD5 hash. After that
 ![Image](https://github.com/user-attachments/assets/95c9fed6-d2eb-49fc-a3c5-b428681bef7c) <br />
 - CMD="/bin/sh" → Sets CMD to /bin/sh, meaning the shell will be executed. And sudo php -r "system('$CMD');" → Runs a PHP one-liner that executes system('/bin/sh'), effectively spawning a shell with superuser privileges (if php is allowed via sudo).
 - Now, we got a root shell, just find and read the root flag.
+- Additionally, Metasploit has a module to exploit this vulnerability. You can use this module to gain a shell, but I encourage you to attempt a manual exploit first to avoid over-reliance on Metasploit.
