@@ -7,4 +7,4 @@
 - This lab asked me to submit the DNS server version of the target as the answer. I performed a TCP scan on port 53, but it was filtered, so I switched to a UDP scan on the same port and found the DNS server information
 ![Image](https://github.com/user-attachments/assets/a03212c6-e469-44fa-9ad2-cd8261985f28)
 # The hard lab:
-- I didn't document this challenge clearly, but try reviewing the Firewall IDS/IPS Evasion section to find a successful Nmap command and a way to find final flag. Good luck to you, just read it carefully.
+- I didn't document this challenge clearly, but try reviewing the Firewall IDS/IPS Evasion section to find a successful Nmap command and a way to get final flag. Good luck to you, just read it carefully.
