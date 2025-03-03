@@ -4,15 +4,15 @@
 - Medium lab: Try logging in as another user. <br>
 - Hard lab: Using UDP scan. <br>
 # The easy lab:
-- Performing an Nmap scan on the target revealed the following open ports, including FTP. Since FTP is a protocol prone to misconfigurations, we should check whether any misconfigurations exist in this service.
+- Performing an Nmap scan on the target revealed the following open ports, including FTP. Since FTP is a protocol prone to misconfigurations, we should check whether any misconfigurations exist in this service. <br>
  ![Image](https://github.com/user-attachments/assets/c60a1d35-8a13-43f8-821c-b95088aabdf0) <br>
-- We have been provided with the information 'ceil', so let's try using it for the FTP service. We successfully logged in, but there is no useful information here.
+- We have been provided with the information 'ceil', so let's try using it for the FTP service. We successfully logged in, but there is no useful information here. <br>
  ![Image](https://github.com/user-attachments/assets/59a45c08-e0c3-400c-b10d-4db72e312897)
- - Now, let's proceed with DNS enumeration. From the banner, we can see that this company’s domain is inlanefreight.htb. We perform DNS enumeration to gather more information. However, after attempting a zone transfer, we did not obtain any useful information.
+ - Now, let's proceed with DNS enumeration. From the banner, we can see that this company’s domain is inlanefreight.htb. We perform DNS enumeration to gather more information. However, after attempting a zone transfer, we did not obtain any useful information. <br>
  ![Image](https://github.com/user-attachments/assets/e74f4266-f897-4c3f-b7bb-afe6f0e4b57d) <br>
  - However, when I checked back on the ongoing Nmap scan, I discovered another open port: 2121. Based on my assumption, this could be another FTP server. I proceeded to use the previously obtained credentials to log into this FTP server. <br>
  ![Image](https://github.com/user-attachments/assets/5523f368-e9ce-47de-8039-60ec8fd463e3) <br>
- - Login was successful, and I listed some interesting directories, including the .ssh directory. I proceeded to download the SSH authorized key and used it to log in without needing a password.
+ - Login was successful, and I listed some interesting directories, including the .ssh directory. I proceeded to download the SSH authorized key and used it to log in without needing a password. <br>
  ![image](https://github.com/user-attachments/assets/74f6ae90-728c-47fc-a9de-edae754829b3) <br>
  - Now, we just need to locate and read flag.txt somewhere within the directories on this server.
  ![image](https://github.com/user-attachments/assets/3bda6cb3-529b-4a14-9e15-c8017a42599c) <br>
