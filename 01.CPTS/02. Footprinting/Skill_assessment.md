@@ -1,3 +1,8 @@
+# Hints:
+- Read these hints and try to solve it yourself before referring to the write-up. <br>
+- Easy lab: It is a port outside the well-known 1000 ports. <br>
+- Medium lab: Try logging in as another user. <br>
+- Hard lab: Using UDP scan. <br>
 # The easy lab:
 - Performing an Nmap scan on the target revealed the following open ports, including FTP. Since FTP is a protocol prone to misconfigurations, we should check whether any misconfigurations exist in this service.
  ![Image](https://github.com/user-attachments/assets/c60a1d35-8a13-43f8-821c-b95088aabdf0) <br>
