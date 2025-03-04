@@ -18,6 +18,26 @@
  ![image](https://github.com/user-attachments/assets/3bda6cb3-529b-4a14-9e15-c8017a42599c) <br>
  # The medium lab:
  - I forgot to capture the video so I'll update it later.
+ - Performed an Nmap scan and found ports for services such as RDP, NFS, SMB. <br>
+ ![image](https://github.com/user-attachments/assets/5a6bff4a-5d3f-4b76-bf6d-fc15e14aa592) <br>
+ - Since SMB is available, I attempted SMB enumeration using tools like smbclient, but it didn't yield any results. At this point, I used showmount on NFS to check for anything interesting and discovered a shared directory. <br>
+ ![image](https://github.com/user-attachments/assets/ac476439-f560-4d92-a81c-c66184e93c1c) <br>
+ - After mounting the shared directory, we found many text files inside. One of these files contains information about a specific user. <br>
+ ![image](https://github.com/user-attachments/assets/67a7141c-ba41-4443-ae69-25f19042d807) <br>
+ - We have the login credentials for the user Alex. <br>
+ ![image](https://github.com/user-attachments/assets/233f24e4-feee-4ee8-b070-2a3c67f11dd4) <br>
+ - Use this information to log in to the server via RDP. <br>
+ ![image](https://github.com/user-attachments/assets/35891390-682b-4169-b7d0-6065578ded15) <br>
+- After logging in, we noticed that this machine has SQL Server Management Studio installed, suggesting that a database might be running in the background. However, attempting to log in using Alex's credentials was unsuccessful. <br>
+![image](https://github.com/user-attachments/assets/328cdfde-d2e6-4688-9ff8-ee4465e41230) <br>
+- This message suggests that the user Alex does not have permissions on the database. I proceeded to search around and discovered a directory within Alex's user folder. Inside, there was a file containing credentials for the sa user, which has the highest privileges in MSSQL. <br>
+![image](https://github.com/user-attachments/assets/8261aa15-a0d5-4026-bc5d-5442f4d0c157) <br>
+- However, even with the sa user credentials, we still couldn't log in to the database. <br>
+![image](https://github.com/user-attachments/assets/4d850873-74bb-4087-b9cd-5e2a872a401e) <br>
+- I was stuck here for a long time trying to figure out the login credentials, thinking it was an issue caused by the service (I was so foolish). After a few hours, I decided to look for hints in the forum, where members suggested trying to log in with a different user who might have higher privileges. That’s when I thought of this approach and attempted to log in as Administrator using the sa user’s password. <br>
+![image](https://github.com/user-attachments/assets/98443b05-18d9-4be9-9aee-fe0e44398d74) <br>
+- Login was successful! Now, open SQL Server Management Studio and use Windows Authentication with the Administrator session. We have successfully accessed the database. Now, we just need to run queries to retrieve the password for the HTB user. <br>
+![image](https://github.com/user-attachments/assets/a43d68ab-b8d2-4d1b-a539-05466d2b9360) <br>
  # The hard lab:
  - Performed an Nmap scan and found open ports for IMAP, POP3, and SSH.
  - In this lab, we don't have any credentials to log in to the IMAP or POP3 server, so let's try to find them. I spent around two hours trying to find other open ports for enumeration, but Nmap still hadn't finished. I was stuck without any hints from HTB. <br>
