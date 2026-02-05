@@ -1,6 +1,6 @@
 # File: brute_juicypotato.ps1
 $clsids = Get-Content ".\clsid_list.txt"
-$JuicyPotato = ".\JuicyPotato.exe"  # đổi tên nếu khác
+$JuicyPotato = ".\JuicyPotato.exe"
 
 if (Test-Path ".\working_clsid.txt") { Remove-Item ".\working_clsid.txt" }
 
