@@ -1,0 +1,15 @@
+{
+    NAME "CUPS-Create-Local-Printer"
+    OPERATION CUPS-Create-Local-Printer
+
+    GROUP operation-attributes-tag
+    ATTR charset attributes-charset utf-8
+    ATTR language attributes-natural-language en
+    ATTR uri printer-uri ipp://localhost:631/
+
+    GROUP printer-attributes-tag
+    ATTR name printer-name $name
+    ATTR uri device-uri $device
+
+    STATUS successful-ok
+}
